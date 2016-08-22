@@ -3,7 +3,7 @@ $(document).ready(function(){
 	// This calls the renderButtons() function
 
 
-	var topics = ['butterflies', 'flowers', 'trees', 'plants', 'cactus', 'bushes'];
+	var topics = ['butterflies', 'flowers', 'colors'];
 
 	renderButtons();
 
@@ -25,7 +25,8 @@ $(document).ready(function(){
 		    a.text(topics[i]); // Provided the initial button text
 		    $('.topicsView').append(a); // Added the button to the HTML
 		}
-		$('#topic-input').empty();
+		//$('#topic-input').text('');
+    $('input[type="text"]').val('');
 		
 	}
 
@@ -51,6 +52,7 @@ $(document).ready(function(){
 	// This function handles events where one button is clicked
 	$('button').on('click', function(){
 
+    console.log(topics);
 
 		var tempTopic = $(this).data('topic');
 		//console.log(tempTopic);
@@ -62,38 +64,57 @@ $(document).ready(function(){
             })
             .done(function(response) {
 
-                console.log(queryURL);
+                //console.log(queryURL);
 
-                console.log(response);
+                //console.log(response);
 
                 var results = response.data;
-                //--------------------------------
-
+                
                 for (var i = 0; i < results.length; i++) {
 
+                  var myTopicDiv = $('<div>');
+                  myTopicDiv.addClass('col-lg-2');
 
-                    var myTopicDiv = $('<div>');
-		            if (results[i].rating == "r" || results[i].rating == "pg-13")
-		            {
+  		            if (results[i].rating == "r" || results[i].rating == "pg-13" || results[i].rating == " ")
+  		            {
 
-		            }
-		            else {
-                    	var p = $('<p>').text("Rating: " + results[i].rating);
-                	}
+  		            }
+  		            else {
 
-                    var tImage = $('<img>');
-                    tImage.attr('src', results[i].images.fixed_height.url);
+                      	var p = $('<p>').text("Rating: " + results[i].rating);
+                  	}
 
-                    myTopicDiv.append(p);
-                    myTopicDiv.append(tImage);
+                      var tImage = $('<img>');
+                      tImage.attr('src', results[i].images.fixed_width_still.url);
+                      tImage.attr('data-still', results[i].images.fixed_width_still.url);
+                      tImage.attr('data-state', 'still');
+                      tImage.attr('data-animate', results[i].images.fixed_width.url);
+                      tImage.attr('class', 'topicImg');
 
-                    $('#gifsAppearHere').prepend(myTopicDiv);
+                      myTopicDiv.append(p);
+                      myTopicDiv.append(tImage);
 
-                }
+                      $('#gifsAppearHere').prepend(myTopicDiv);
+
+                  }
 
             });
-	})
+	   })
 
+      $(document).on('click', '.topicImg', function(){
+
+        var state = $(this).attr('data-state');
+
+        if (state == 'still') {
+              $(this).attr('src', $(this).attr('data-animate'));
+              $(this).attr('data-state', 'animate');
+          }
+          else {
+              $(this).attr('src', $(this).attr('data-still'));
+              $(this).attr('data-state', 'still');
+          }
+
+      });
 
 
 });
