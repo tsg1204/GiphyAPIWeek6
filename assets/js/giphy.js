@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 
 	// This function handles events where one button is clicked
-	$('button').on('click', function(){
+	$(document.body).on('click', '.btnTopic', function(){
 
     console.log(topics);
 
@@ -67,6 +67,7 @@ $(document).ready(function(){
                 //console.log(queryURL);
 
                 //console.log(response);
+                $('#gifsAppearHere').empty();
 
                 var results = response.data;
                 
@@ -99,6 +100,7 @@ $(document).ready(function(){
                   }
 
             });
+            return false;
 	   })
 
       $(document).on('click', '.topicImg', function(){
