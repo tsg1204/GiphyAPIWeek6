@@ -3,7 +3,7 @@ $(document).ready(function(){
 	// This calls the renderButtons() function
 
 
-	var topics = ['butterflies', 'flowers', 'colors'];
+	var topics = ['butterflies', 'flowers', 'colors', 'lion', 'deer'];
 
 	renderButtons();
 
@@ -73,29 +73,29 @@ $(document).ready(function(){
                 
                 for (var i = 0; i < results.length; i++) {
 
-                  var myTopicDiv = $('<div>');
-                  myTopicDiv.addClass('col-lg-2');
+					var myTopicDiv = $('<div>');
+					myTopicDiv.addClass('col-lg-2');
 
-  		            if (results[i].rating == "r" || results[i].rating == "pg-13" || results[i].rating == " ")
-  		            {
+					var tImage = $('<img>');
+					tImage.attr('src', results[i].images.fixed_width_still.url);
+					tImage.attr('data-still', results[i].images.fixed_width_still.url);
+					tImage.attr('data-state', 'still');
+					tImage.attr('data-animate', results[i].images.fixed_width.url);
+					tImage.attr('class', 'topicImg');
 
-  		            }
-  		            else {
+					if (results[i].rating == "r" || results[i].rating == "pg-13" || results[i].rating == " ")
+					{
 
-                      	var p = $('<p>').text("Rating: " + results[i].rating);
-                  	}
+					}
+					else {
 
-                      var tImage = $('<img>');
-                      tImage.attr('src', results[i].images.fixed_width_still.url);
-                      tImage.attr('data-still', results[i].images.fixed_width_still.url);
-                      tImage.attr('data-state', 'still');
-                      tImage.attr('data-animate', results[i].images.fixed_width.url);
-                      tImage.attr('class', 'topicImg');
+						var p = $('<p id="rating-txt">').text("Rating: " + results[i].rating);
+					}
 
-                      myTopicDiv.append(p);
-                      myTopicDiv.append(tImage);
+					myTopicDiv.append(p);
+					myTopicDiv.append(tImage);
 
-                      $('#gifsAppearHere').prepend(myTopicDiv);
+					$('#gifsAppearHere').prepend(myTopicDiv);
 
                   }
 
@@ -154,45 +154,4 @@ data:
 
 
 
-<script type="text/javascript">
-
-$('buttons').on('click', function(){
-    $('.animalButton').removeClass('active');
-    $(this).addClass('active');
-
-    var p = $(this).data('person'); // <------------------------- 1. What is this in "this" case? 
-
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + p + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-    $.ajax({url: queryURL, method: 'GET'})
-     .done(function(response) {
-         var results = response.data;
-
-         for(var i=0; i < results.length; i++){
-
-
-            if (results[i].rating == "r" || results[i].rating == "pg-13")
-            {
-
-            }
-            else {
-              var gifDiv = $('<div class="item">')
-
-             var rating = results[i].rating;
-
-             var p = $('<p>').text( "Rating: " + rating);
-
-             var personImage = $('<img>');
-             personImage.attr('src', results[i].images.fixed_height.url);
-
-             gifDiv.append(p)
-             gifDiv.append(personImage)
-
-             $('#gifsAppearHere').prepend(gifDiv);               
-            }
-
-         }
-        
-    }); 
-});
 </script>*/

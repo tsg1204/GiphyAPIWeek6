@@ -43,10 +43,6 @@ main {
 	padding-top: 130px;
 }
 
-.btnTopic {
-	margin-right: 10px;
-
-}
 .main-section {
 	background-image: url('../images/question.gif');
 	background-repeat: no-repeat;
@@ -58,6 +54,21 @@ main {
 	text-align: justify;
 }
 
+.btnTopic {
+	margin: 10px 10px 10px 0px;
+
+}
+#addTopic{
+	margin: 10px 10px 10px 20px;
+}
+
+.topicImg {
+	margin: 0px 5px 10px 0px;
+	width: 90%;
+}
+#rating-txt {
+	font-size: 12px;
+}
 /* Footer **************************/    
 footer {
 	background: #666;
